@@ -60,3 +60,32 @@ char uart_getchar(void){
 void uart_echo(void){
     uart_putchar(uart_getchar());
 }
+
+//reads the input characters and echoes it to screen and returns the full command when enter is pressed
+char* readCommand(){            
+    char* command='/0';
+    int i=0;
+    while(1){
+        char enteredChar=uart_getchar();
+        uart_putchar(enteredChar);    
+        command[i]=enteredChar;                 //adds the newly accepted character to the end of string array
+        i++;                                    //increments the index to store next character
+        if(enteredChar=='\n')                   //checks if the user clicked enter to indicate end of command 
+            break;                              //stops reading and adding characters to command                                             
+    } 
+    command[i]='\0';
+    return command;
+}
+
+//controls redLed on PIN 11 of arduino according to the received string from uart
+void uart_LedControl(char* command){
+    if(strcmp(command,"ON\r\n")==0){
+        PORTB &= ~(1<<PB3);                        //turns the red LED ON
+    }
+    else if(strcmp(command,"OFF\r\n")==0){
+        PORTB |= 1<<PB3;                           //turns the red LED OFF 
+    }
+    else {
+        uart_putstr("Enter a valid command\n");    //gives an error message in case of an unexpected input command
+    }
+}
