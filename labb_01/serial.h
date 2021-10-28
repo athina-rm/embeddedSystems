@@ -10,5 +10,7 @@ char uart_getchar(void);
 
 void uart_echo(void);
 
-#endif
+char* readCommand(void);
+void uart_LedControl(char* command);
 
+#endif
