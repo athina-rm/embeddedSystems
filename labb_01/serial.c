@@ -48,3 +48,15 @@ void uart_putstr(const char *str){
         uart_putchar(str[i]);               //tranmits the character       
     }
 }
+
+//gets the character rxvd in USART Data register
+char uart_getchar(void){
+    while (!(UCSR0A & (1<<RXC0))){}
+/* Get and return received data from buffer */
+    return UDR0;
+}
+
+//echos each character rxvd to the screen
+void uart_echo(void){
+    uart_putchar(uart_getchar());
+}

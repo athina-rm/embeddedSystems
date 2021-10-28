@@ -8,10 +8,11 @@ void main (void) {
 	PORTB |= 1<<PB1;				//keeps the blue Led OFF		
 
 	while(1){
-		PORTB ^= 1<<PIN1;			//alternately writes 0 and 1 to pin 9 to make the LED blink
+		/*PORTB ^= 1<<PIN1;			//alternately writes 0 and 1 to pin 9 to make the LED blink
 		_delay_ms(500);
 		uart_putchar('a');			
 		uart_putchar('\n');
-		uart_putstr("Athina\n");
+		uart_putstr("Athina\n");*/
+		uart_echo();
 	}
 }
